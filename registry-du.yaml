@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: registry-du-space
+  namespace: test-registry-space
+spec:
+  selector: {}
+  template:
+    metadata:
+      name: registry-du
+    spec:
+      volumes:
+        - name: nfs-path
+          persistentVolumeClaim:
+            claimName: image-registry-nfs-path
+      containers:
+        - name: registry-du
+          image: quay.io/cpranava0/registry-du:latest
+          command:
+            - registry-du
+            - '/registry'
+          volumeMounts:
+            - name: nfs-path
+              readOnly: true
+              mountPath: /registry
+      restartPolicy: Never
