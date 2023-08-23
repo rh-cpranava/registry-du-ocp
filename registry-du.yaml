@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: registry-du-space
-  namespace: test-registry-space
+  namespace: openshift-image-registry
 spec:
   selector: {}
   template:
